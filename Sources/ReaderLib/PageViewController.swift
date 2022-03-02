@@ -10,7 +10,7 @@ import UIKit
 
 class PageViewController: UIPageViewController {
 
-    var segmentedControl: UISegmentedControl!
+//    var segmentedControl: UISegmentedControl!
     var viewList = [UIViewController]()
     var segmentedControlItems = [String]()
     var viewControllerOne: UIViewController!
@@ -38,14 +38,14 @@ class PageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        segmentedControl = UISegmentedControl(items: segmentedControlItems)
+//        segmentedControl = UISegmentedControl(items: segmentedControlItems)
         
         ///to set the segment controller segment width adjust to the width of the text
         ///as some languages may have longer text lengths for segment titles
-        segmentedControl.apportionsSegmentWidthsByContent = true
-        segmentedControl.addTarget(self, action: #selector(PageViewController.didSwitchMenu(_:)), for: UIControl.Event.valueChanged)
-        segmentedControl.selectedSegmentIndex = index
-        self.navigationItem.titleView = segmentedControl
+//        segmentedControl.apportionsSegmentWidthsByContent = true
+//        segmentedControl.addTarget(self, action: #selector(PageViewController.didSwitchMenu(_:)), for: UIControl.Event.valueChanged)
+//        segmentedControl.selectedSegmentIndex = index
+//        self.navigationItem.titleView = segmentedControl
 
         viewList = [viewControllerOne, viewControllerTwo]
 
@@ -106,7 +106,7 @@ extension PageViewController: UIPageViewControllerDelegate {
 
         if finished && completed {
             let viewController = pageViewController.viewControllers?.last
-            segmentedControl.selectedSegmentIndex = viewList.index(of: viewController!)!
+//            segmentedControl.selectedSegmentIndex = viewList.index(of: viewController!)!
         }
     }
 }

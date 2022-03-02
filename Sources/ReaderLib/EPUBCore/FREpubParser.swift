@@ -119,7 +119,7 @@ class FREpubParser: NSObject {
             bookZipEntries = try ZipContainer.open(container: decryptedEpubData)
             
             resourcesBasePath = "bookprovider://localHostBooks/\(bookName)/"
-            book.baseURL = URL(string: "bookprovider:/localHostBooks/\(bookName)/")!
+            book.baseURL = URL(string: "bookprovider:/localHostBooks/\(bookName)/") ?? URL(string: "bookprovider:/localHostBooks/\(bookName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")/")!
             try readContainer()
             try readOpf()
         } catch {

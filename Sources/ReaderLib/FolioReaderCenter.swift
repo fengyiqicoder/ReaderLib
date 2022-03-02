@@ -275,12 +275,15 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         if #available(iOS 13.0, *) {
             closeIcon = UIImage(systemName: "xmark")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 18, weight: .bold))
         }
-        let tocIcon = UIImage(readerImageNamed: "icon-navbar-toc")?.ignoreSystemTint(withConfiguration: self.readerConfig)
+        var tocIcon = UIImage(readerImageNamed: "icon-navbar-toc")?.ignoreSystemTint(withConfiguration: self.readerConfig)
+        if #available(iOS 13.0, *) {
+            tocIcon = UIImage(systemName: "list.dash")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 18, weight: .bold))
+        }
         let fontIcon = UIImage(readerImageNamed: "icon-navbar-font")?.ignoreSystemTint(withConfiguration: self.readerConfig)
         let space = 70 as CGFloat
 
         let menu = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action:#selector(closeReader(_:)))
-//        let toc = UIBarButtonItem(image: tocIcon, style: .plain, target: self, action:#selector(presentChapterList(_:)))
+        let toc = UIBarButtonItem(image: tocIcon, style: .plain, target: self, action:#selector(presentChapterList(_:)))
 
         navigationItem.leftBarButtonItems = [menu]
 
@@ -297,7 +300,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let font = UIBarButtonItem(image: fontIcon, style: .plain, target: self, action: #selector(presentFontsMenu))
         font.width = space
 
-//        rightBarIcons.append(contentsOf: [font])
+        rightBarIcons.append(contentsOf: [toc])
         navigationItem.rightBarButtonItems = rightBarIcons
         
         if(self.readerConfig.displayTitle){
