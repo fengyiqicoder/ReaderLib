@@ -174,9 +174,8 @@ extension FolioReader {
         Bool = true, delegate: SinkProtocol) {
         let readerContainer = FolioReaderContainer(withConfig: config, folioReader: self, epubPath: epubPath, unzipPath: unzipPath, decryptionKey: decryptionKey, removeEpub: shouldRemoveEpub)
         self.readerContainer = readerContainer
-        readerContainer.modalPresentationStyle = .fullScreen
+        readerContainer.modalPresentationStyle = .overFullScreen
         readerContainer.sinkDelegate = delegate
-        readerContainer.transitioningDelegate = transitionDelegate
         parentViewController.present(readerContainer, animated: animated) {
             NotificationCenter.default.post(name: .folioReaderPresentationCompleted, object: nil)
         }
