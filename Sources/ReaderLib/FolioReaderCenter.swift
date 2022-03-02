@@ -35,9 +35,15 @@ public extension Notification.Name {
 
 }
 
+@objc public protocol SinkProtocol: class {
+    func addEecerptwith(text: String, presenting: UIViewController)
+    func didDismiss()
+}
+
 /// The base reader class
 open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    open weak var sinkDelegate: SinkProtocol?
     /// This delegate receives the events from the current `FolioReaderPage`s delegate.
     open weak var delegate: FolioReaderCenterDelegate?
 
@@ -265,15 +271,18 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         // Navbar buttons
         let shareIcon = UIImage(readerImageNamed: "icon-navbar-share")?.ignoreSystemTint(withConfiguration: self.readerConfig)
         let audioIcon = UIImage(readerImageNamed: "icon-navbar-tts")?.ignoreSystemTint(withConfiguration: self.readerConfig) //man-speech-icon
-        let closeIcon = UIImage(readerImageNamed: "icon-navbar-close")?.ignoreSystemTint(withConfiguration: self.readerConfig)
+        var closeIcon = UIImage(readerImageNamed: "icon-navbar-close")?.ignoreSystemTint(withConfiguration: self.readerConfig)
+        if #available(iOS 13.0, *) {
+            closeIcon = UIImage(systemName: "xmark")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 18, weight: .bold))
+        }
         let tocIcon = UIImage(readerImageNamed: "icon-navbar-toc")?.ignoreSystemTint(withConfiguration: self.readerConfig)
         let fontIcon = UIImage(readerImageNamed: "icon-navbar-font")?.ignoreSystemTint(withConfiguration: self.readerConfig)
         let space = 70 as CGFloat
 
         let menu = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action:#selector(closeReader(_:)))
-        let toc = UIBarButtonItem(image: tocIcon, style: .plain, target: self, action:#selector(presentChapterList(_:)))
+//        let toc = UIBarButtonItem(image: tocIcon, style: .plain, target: self, action:#selector(presentChapterList(_:)))
 
-        navigationItem.leftBarButtonItems = [menu, toc]
+        navigationItem.leftBarButtonItems = [menu]
 
         var rightBarIcons = [UIBarButtonItem]()
 
@@ -288,7 +297,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let font = UIBarButtonItem(image: fontIcon, style: .plain, target: self, action: #selector(presentFontsMenu))
         font.width = space
 
-        rightBarIcons.append(contentsOf: [font])
+//        rightBarIcons.append(contentsOf: [font])
         navigationItem.rightBarButtonItems = rightBarIcons
         
         if(self.readerConfig.displayTitle){
@@ -1395,6 +1404,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: NavigationBar Actions
 
     @objc func closeReader(_ sender: UIBarButtonItem) {
+        self.sinkDelegate?.didDismiss()
         dismiss()
         folioReader.close()
         navigationController?.parent?.navigationController?.popViewController(animated: false)
