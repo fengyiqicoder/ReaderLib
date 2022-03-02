@@ -76,10 +76,11 @@ open class FolioReaderWebView: WKWebView {
     
     @objc func excerpt() {
         self.js("getSelectedText()") { (callback, error) in
-            if let selectText = callback {
-                self.folioReader.readerCenter?.sinkDelegate?.addEecerptwith(text: selectText, presenting: self.folioReader.readerCenter! )
-                self.clearTextSelection()
-            }
+            guard error == nil, let text = callback as? String else { return }
+            
+            self.folioReader.readerCenter?.sinkDelegate?.addEecerptwith(text: text, presenting: self.folioReader.readerCenter! )
+            self.clearTextSelection()
+            
         }
     }
     
