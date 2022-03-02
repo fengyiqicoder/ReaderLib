@@ -63,9 +63,9 @@ open class FolioReaderWebView: WKWebView {
                 action == #selector(updateHighlightNote(_:)) ||
                 (action == #selector(define(_:)) && isOneWord) ||
                 (action == #selector(play(_:)) && (book.hasAudio || readerConfig.enableTTS)) ||
-                (action == #selector(share(_:)) && readerConfig.allowSharing)||
+                (action == #selector(share(_:)) && readerConfig.allowSharing) ||
                 (action == #selector(excerpt)) ||
-                (action == #selector(copy(_))) {
+                (action == #selector(copy(_:))) {
                 return true
             }
             return false
@@ -75,8 +75,8 @@ open class FolioReaderWebView: WKWebView {
     // MARK: - UIMenuController - Actions
     
     @objc func excerpt() {
-        self.js("getSelectedText()") {
-            if let selectText = $0 {
+        self.js("getSelectedText()") { (callback, error) in
+            if let selectText = callback {
                 self.folioReader.readerCenter?.sinkDelegate?.addEecerptwith(text: selectText, presenting: self.folioReader.readerCenter! )
                 self.clearTextSelection()
             }
