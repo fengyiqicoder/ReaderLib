@@ -11,6 +11,8 @@ import FontBlaster
 
 /// Reader container
 open class FolioReaderContainer: UIViewController {
+    open weak var sinkDelegate: SinkProtocol?
+
     var shouldHideStatusBar = true
     var shouldRemoveEpub = true
     
@@ -130,6 +132,7 @@ open class FolioReaderContainer: UIViewController {
         self.readerConfig.shouldHideNavigationOnTap = ((hideBars == true) ? true : self.readerConfig.shouldHideNavigationOnTap)
 
         self.centerViewController = FolioReaderCenter(withContainer: self)
+        self.centerViewController?.sinkDelegate = sinkDelegate
 
         if let rootViewController = self.centerViewController {
             self.centerNavigationController = UINavigationController(rootViewController: rootViewController)

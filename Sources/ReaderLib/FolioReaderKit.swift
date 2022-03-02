@@ -171,10 +171,11 @@ extension FolioReader {
     ///   - shouldRemoveEpub: Boolean to remove the epub or not. Default true.
     ///   - animated: Pass true to animate the presentation; otherwise, pass false.
     open func presentReader(parentViewController: UIViewController, withEpubPath epubPath: String, unzipPath: String? = nil, andConfig config: FolioReaderConfig, shouldRemoveEpub: Bool = true, decryptionKey: String = "", animated:
-        Bool = true) {
+        Bool = true, delegate: SinkProtocol) {
         let readerContainer = FolioReaderContainer(withConfig: config, folioReader: self, epubPath: epubPath, unzipPath: unzipPath, decryptionKey: decryptionKey, removeEpub: shouldRemoveEpub)
         self.readerContainer = readerContainer
         readerContainer.modalPresentationStyle = .fullScreen
+        readerContainer.sinkDelegate = delegate
         readerContainer.transitioningDelegate = transitionDelegate
         parentViewController.present(readerContainer, animated: animated) {
             NotificationCenter.default.post(name: .folioReaderPresentationCompleted, object: nil)
