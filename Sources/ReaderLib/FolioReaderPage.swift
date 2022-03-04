@@ -244,7 +244,7 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
             scrollPageToBottom()
         }
         
-        UIView.animate(withDuration: 0.1, animations: {webView.alpha = 1}, completion: { finished in
+        UIView.animate(withDuration: 0.18, animations: {webView.alpha = 1}, completion: { finished in
             webView.isColors = false
             self.webView?.createMenu(options: false)
         })
