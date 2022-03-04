@@ -306,6 +306,28 @@ extension FolioReader {
     }
     
     //需要注释
+    public struct ReaderPosition: Codable {
+        var collectionViewOffset: CGFloat
+        var webviewOffset: CGFloat
+    }
+    open var savedPosition: ReaderPosition? {
+        get {
+            guard let bookId = BookProvider.shared.currentBook.name,
+                  let json = self.defaults.value(forKey: bookId) as? Data else {
+                      return nil
+                  }
+            let value = try? JSONDecoder().decode(ReaderPosition.self, from: json)
+            return value
+        }
+        set {
+            guard let bookId = BookProvider.shared.currentBook.name else {
+                print("NO BOOK ID")
+                return
+            }
+            let json = try! JSONEncoder().encode(newValue)
+            self.defaults.set(json, forKey: bookId)
+        }
+    }
 //    open var savedPositionForCurrentBook: CFI? {
 //        get {
 //            guard let bookId = BookProvider.shared.currentBook.name,
@@ -400,17 +422,17 @@ extension FolioReader {
         print("saveReaderState")
         guard isReaderOpen, let currentPage = self.readerCenter?.currentPage else { return }
         print("GUARDA EN DONDE SE QUEDA")
-        currentPage.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
-            guard error == nil,
-                let strongSelf = self,
-                let currentPosition = callback as? String,
-                let currentPageNumber = strongSelf.readerCenter?.currentPageNumber,
-                let cfi = EpubCFI.generate(chapterIndex: currentPageNumber - 1, odmStr: currentPosition)
-                else { return }
-            print(cfi)
-//            strongSelf.savedPositionForCurrentBook = cfi
-            strongSelf.readerCenter?.pageDelegate?.userCFIChanged?(cfi: cfi.standardizedFormat)
-        })
+//        currentPage.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
+//            guard error == nil,
+//                let strongSelf = self,
+//                let currentPosition = callback as? String,
+//                let currentPageNumber = strongSelf.readerCenter?.currentPageNumber,
+//                let cfi = EpubCFI.generate(chapterIndex: currentPageNumber - 1, odmStr: currentPosition)
+//                else { return }
+//            print(cfi)
+////            strongSelf.savedPositionForCurrentBook = cfi
+//            strongSelf.readerCenter?.pageDelegate?.userCFIChanged?(cfi: cfi.standardizedFormat)
+//        })
     }
 
     /// Closes and save the reader current instance.

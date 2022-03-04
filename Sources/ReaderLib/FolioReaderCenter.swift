@@ -324,7 +324,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 //        print("PAGENUMBER: \(pageNumber)")
         //WORKING
 //        DispatchQueue.main.async {
-            self.collectionView.setContentOffset(CGPoint(x: 3900, y: 0), animated: false)
+        if let postion = folioReader.savedPosition {
+            self.collectionView.setContentOffset(CGPoint(x: postion.collectionViewOffset, y: 0), animated: false)
+        }
 //        }
 //        self.folioReader.savedPositionForCurrentBook = cfi
 //        self.changePageWith(page: pageNumber)
@@ -412,7 +414,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
             let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
             pageScrollView.setContentOffset(pageOffsetPoint, animated: true)
-            print("# setScrollDirection \(pageOffsetPoint)")
 
         }
     }
@@ -622,7 +623,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
         currentPage.webView?.scrollView.setContentOffset(pageOffsetPoint, animated: true)
-        print("# didRotate \(pageOffsetPoint)")
 
     }
 
@@ -1355,7 +1355,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     private func updateUserTrackingLocation() {
-        print("updateUserTrackingLocation \(collectionView.contentOffset) \(currentPage?.webView?.scrollView.contentOffset)")
+//        print("updateUserTrackingLocation \(collectionView.contentOffset) \(currentPage?.webView?.scrollView.contentOffset)")
+        let position = FolioReader.ReaderPosition(collectionViewOffset: collectionView.contentOffset.x, webviewOffset: currentPage?.webView?.scrollView.contentOffset.x ?? 0)
+        folioReader.savedPosition = position
 //        print("change current page number to \()")
 
         currentPage?.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
@@ -1542,11 +1544,10 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
             if isFirstLoad {
                 updateCurrentPage(page)
                 //WORKING
-                print("Scrolled")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390*3, y: 0), animated: false)
-                    print("# one an only \(CGPoint(x: 390*3, y: 0))")
-
+                    if let postion = self.folioReader.savedPosition {
+                        self.currentPage?.webView?.scrollView.setContentOffset(CGPoint(x: postion.webviewOffset, y: 0), animated: false)
+                    }
                 }
                 
                 isFirstLoad = false
@@ -1575,7 +1576,6 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
         if (readerConfig.scrollDirection == .horizontalWithVerticalContent),
             let offsetPoint = self.currentWebViewScrollPositions[page.pageNumber - 1] {
             page.webView?.scrollView.setContentOffset(offsetPoint, animated: false)
-            print("# horizontalWithVerticalContent \(offsetPoint)")
         }
         
         // Pass the event to the centers `pageDelegate`
