@@ -366,6 +366,7 @@ extension FolioReader {
 
     /// Save Reader state, book, page and scroll offset.
     @objc open func saveReaderState() {
+        print("saveReaderState")
         guard isReaderOpen, let currentPage = self.readerCenter?.currentPage else { return }
         print("GUARDA EN DONDE SE QUEDA")
         currentPage.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in

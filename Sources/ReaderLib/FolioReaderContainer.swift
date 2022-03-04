@@ -64,16 +64,17 @@ open class FolioReaderContainer: UIViewController {
         // At this moment, we need to initialize all non-optional objects with default values.
         // The function `setupConfig(config:epubPath:removeEpub:)` MUST be called afterward.
         // See the ExampleFolioReaderContainer.swift for more information?
-        self.readerConfig = FolioReaderConfig()
-        self.folioReader = FolioReader()
-        self.epubPath = ""
-        self.decryptionKey = ""
-        self.shouldRemoveEpub = false
+//        self.readerConfig = FolioReaderConfig()
+//        self.folioReader = FolioReader()
+//        self.epubPath = ""
+//        self.decryptionKey = ""
+//        self.shouldRemoveEpub = false
+//
+//        super.init(coder: aDecoder)
 
-        super.init(coder: aDecoder)
-
+        fatalError("Coder init can't happen")
         // Configure the folio reader.
-        self.folioReader.readerContainer = self
+//        self.folioReader.readerContainer = self
     }
 
     /// Common Initialization
@@ -173,6 +174,7 @@ open class FolioReaderContainer: UIViewController {
                 self.centerViewController?.reloadData()
                 self.folioReader.isReaderReady = true
                 self.folioReader.delegate?.folioReader?(self.folioReader, didFinishedLoading: BookProvider.shared.currentBook)
+                
             } catch {
                 self.errorOnLoad = true
                 self.alert(message: error.localizedDescription)

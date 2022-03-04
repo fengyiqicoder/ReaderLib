@@ -67,9 +67,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 //    var animator: ZFModalTransitionAnimator!
     var pageIndicatorView: FolioReaderPageIndicator?
     var pageIndicatorHeight: CGFloat = 20
-    var recentlyScrolled = false
-    var recentlyScrolledDelay = 2.0 // 2 second delay until we clear recentlyScrolled
-    var recentlyScrolledTimer: Timer!
+//    var recentlyScrolled = false
+//    var recentlyScrolledDelay = 2.0 // 2 second delay until we clear recentlyScrolled
+//    var recentlyScrolledTimer: Timer!
     var scrollScrubber: ScrollScrubber?
     var activityIndicator = UIActivityIndicatorView()
     var isScrolling = false
@@ -325,6 +325,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         self.folioReader.savedPositionForCurrentBook = cfi
         self.changePageWith(page: pageNumber)
         self.currentPageNumber = pageNumber
+        //Invesgate
 //        pageDelegate?.getUserCFI?(completionHandler: { [weak self] (cfiString) in
 //            guard let stongSelf = self else { return }
 //            var cfi = stongSelf.folioReader.savedPositionForCurrentBook
@@ -778,7 +779,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     open func changePageWith(href: String, andAudioMarkID markID: String) {
-        if recentlyScrolled { return } // if user recently scrolled, do not change pages or scroll the webview
+//        if recentlyScrolled { return } // if user recently scrolled, do not change pages or scroll the webview
         guard let currentPage = currentPage else { return }
 
         let item = findPageByHref(href)
@@ -1132,7 +1133,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - Audio Playing
 
     func audioMark(href: String, fragmentID: String) {
-        changePageWith(href: href, andAudioMarkID: fragmentID)
+//        changePageWith(href: href, andAudioMarkID: fragmentID)
     }
 
     // MARK: - Sharing
@@ -1266,8 +1267,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.isScrolling = true
-        clearRecentlyScrolled()
-        recentlyScrolled = true
+//        clearRecentlyScrolled()
+//        recentlyScrolled = true
         pointNow = scrollView.contentOffset
         
         if (scrollView is UICollectionView) {
@@ -1344,7 +1345,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     private func updateUserTrackingLocation() {
-        
+        print("updateUserTrackingLocation")
         currentPage?.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
             guard error == nil,
                 let strongSelf = self,
@@ -1355,7 +1356,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         })
     }
     
+    
+    
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print("scrollViewDidEndDecelerating")
         updateUserTrackingLocation()
         
         self.isScrolling = false
@@ -1388,17 +1392,21 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        recentlyScrolledTimer = Timer(timeInterval:recentlyScrolledDelay, target: self, selector: #selector(FolioReaderCenter.clearRecentlyScrolled), userInfo: nil, repeats: false)
-        RunLoop.current.add(recentlyScrolledTimer, forMode: RunLoop.Mode.common)
+        print("scrollViewDidEndDragging")
+        if !decelerate {
+            updateUserTrackingLocation()
+        }
+//        recentlyScrolledTimer = Timer(timeInterval:recentlyScrolledDelay, target: self, selector: #selector(FolioReaderCenter.clearRecentlyScrolled), userInfo: nil, repeats: false)
+//        RunLoop.current.add(recentlyScrolledTimer, forMode: RunLoop.Mode.common)
     }
 
-    @objc func clearRecentlyScrolled() {
-        if(recentlyScrolledTimer != nil) {
-            recentlyScrolledTimer.invalidate()
-            recentlyScrolledTimer = nil
-        }
-        recentlyScrolled = false
-    }
+//    @objc func clearRecentlyScrolled() {
+//        if(recentlyScrolledTimer != nil) {
+//            recentlyScrolledTimer.invalidate()
+//            recentlyScrolledTimer = nil
+//        }
+//        recentlyScrolled = false
+//    }
 
     open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollScrubber?.scrollViewDidEndScrollingAnimation(scrollView)
