@@ -67,9 +67,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 //    var animator: ZFModalTransitionAnimator!
     var pageIndicatorView: FolioReaderPageIndicator?
     var pageIndicatorHeight: CGFloat = 20
-//    var recentlyScrolled = false
-//    var recentlyScrolledDelay = 2.0 // 2 second delay until we clear recentlyScrolled
-//    var recentlyScrolledTimer: Timer!
+    var recentlyScrolled = false
+    var recentlyScrolledDelay = 2.0 // 2 second delay until we clear recentlyScrolled
+    var recentlyScrolledTimer: Timer!
     var scrollScrubber: ScrollScrubber?
     var activityIndicator = UIActivityIndicatorView()
     var isScrolling = false
@@ -1412,17 +1412,17 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         if !decelerate {
             updateUserTrackingLocation()
         }
-//        recentlyScrolledTimer = Timer(timeInterval:recentlyScrolledDelay, target: self, selector: #selector(FolioReaderCenter.clearRecentlyScrolled), userInfo: nil, repeats: false)
-//        RunLoop.current.add(recentlyScrolledTimer, forMode: RunLoop.Mode.common)
+        recentlyScrolledTimer = Timer(timeInterval:recentlyScrolledDelay, target: self, selector: #selector(FolioReaderCenter.clearRecentlyScrolled), userInfo: nil, repeats: false)
+        RunLoop.current.add(recentlyScrolledTimer, forMode: RunLoop.Mode.common)
     }
 
-//    @objc func clearRecentlyScrolled() {
-//        if(recentlyScrolledTimer != nil) {
-//            recentlyScrolledTimer.invalidate()
-//            recentlyScrolledTimer = nil
-//        }
-//        recentlyScrolled = false
-//    }
+    @objc func clearRecentlyScrolled() {
+        if(recentlyScrolledTimer != nil) {
+            recentlyScrolledTimer.invalidate()
+            recentlyScrolledTimer = nil
+        }
+        recentlyScrolled = false
+    }
 
     open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollScrubber?.scrollViewDidEndScrollingAnimation(scrollView)
