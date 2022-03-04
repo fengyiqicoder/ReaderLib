@@ -322,9 +322,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let pageNumber = userCFI.nodes[1].index / 2
         print(userCFI)
         print("PAGENUMBER: \(pageNumber)")
+        //WORKING
         DispatchQueue.main.async {
             self.collectionView.setContentOffset(CGPoint(x: 3900, y: 0), animated: false)
-            self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390, y: 0), animated: false)
         }
 //        self.folioReader.savedPositionForCurrentBook = cfi
 //        self.changePageWith(page: pageNumber)
@@ -1537,6 +1537,8 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
         if self.readerConfig.loadSavedPositionForCurrentBook {
             if isFirstLoad {
                 updateCurrentPage(page)
+                //WORKING
+                self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390, y: 0), animated: false)
                 isFirstLoad = false
 //                pageDelegate?.getUserCFI?(completionHandler: { [weak self] (cfiString) in
 //                    guard let cfiStr = cfiString,
