@@ -1347,10 +1347,12 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     private func updateUserTrackingLocation() {
         print("updateUserTrackingLocation")
         currentPage?.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
+            
             guard error == nil,
                 let strongSelf = self,
                 let currentPosition = callback as? String,
                 let cfi = EpubCFI.generate(chapterIndex: strongSelf.currentPageNumber - 1, odmStr: currentPosition) else { return }
+            print("currentPosition" + currentPosition)
             strongSelf.folioReader.savedPositionForCurrentBook = cfi
             strongSelf.pageDelegate?.userCFIChanged?(cfi: cfi.standardizedFormat)
         })
