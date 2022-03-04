@@ -412,6 +412,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
             let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
             pageScrollView.setContentOffset(pageOffsetPoint, animated: true)
+            print("# setScrollDirection \(pageOffsetPoint)")
+
         }
     }
 
@@ -620,6 +622,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
         currentPage.webView?.scrollView.setContentOffset(pageOffsetPoint, animated: true)
+        print("# didRotate \(pageOffsetPoint)")
+
     }
 
     override open func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
@@ -1541,6 +1545,8 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
                 print("Scrolled")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390*3, y: 0), animated: false)
+                    print("# one an only \(CGPoint(x: 390*3, y: 0))")
+
                 }
                 
                 isFirstLoad = false
@@ -1569,6 +1575,7 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
         if (readerConfig.scrollDirection == .horizontalWithVerticalContent),
             let offsetPoint = self.currentWebViewScrollPositions[page.pageNumber - 1] {
             page.webView?.scrollView.setContentOffset(offsetPoint, animated: false)
+            print("# horizontalWithVerticalContent \(offsetPoint)")
         }
         
         // Pass the event to the centers `pageDelegate`

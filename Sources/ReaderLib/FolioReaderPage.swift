@@ -444,6 +444,7 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
         let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: offset), CGPoint(x: offset, y: 0), CGPoint(x: 0, y: offset))
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.webView?.scrollView.setContentOffset(pageOffsetPoint, animated: animated)
+            print("# scrollPageToOffset \(pageOffsetPoint)")
         }
     }
 
@@ -461,6 +462,7 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
         guard bottomOffset.forDirection(withConfiguration: self.readerConfig) >= 0 else { return }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.webView?.scrollView.setContentOffset(bottomOffset, animated: false)
+            print("# scrollPageToBottom \(bottomOffset)")
         }
     }
 
