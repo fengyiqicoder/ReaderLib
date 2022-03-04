@@ -300,8 +300,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let font = UIBarButtonItem(image: fontIcon, style: .plain, target: self, action: #selector(presentFontsMenu))
         font.width = space
 
-        rightBarIcons.append(contentsOf: [toc])
-        navigationItem.rightBarButtonItems = rightBarIcons
+//        rightBarIcons.append(contentsOf: [toc])
+//        navigationItem.rightBarButtonItems = rightBarIcons
         
         if(self.readerConfig.displayTitle){
             navigationItem.title = book.title
