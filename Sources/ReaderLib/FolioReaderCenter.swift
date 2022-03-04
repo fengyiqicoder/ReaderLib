@@ -1345,8 +1345,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     private func updateUserTrackingLocation() {
-        print("updateUserTrackingLocation")
-        print("change current page number to \(currentPageNumber)")
+        print("updateUserTrackingLocation \(collectionView.contentOffset)")
+//        print("change current page number to \()")
 
         currentPage?.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
             

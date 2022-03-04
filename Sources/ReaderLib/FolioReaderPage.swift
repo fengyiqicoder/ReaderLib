@@ -187,7 +187,7 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
 
     func loadHTMLString(_ htmlContent: String!, baseURL: URL!) {
         // Load the html into the webview
-        webView?.alpha = 0
+        webView?.alpha = 1
         let headerString = "<meta name=\"viewport\" content=\"initial-scale=1.0\" />"
         webView?.loadHTMLString(headerString + htmlContent, baseURL: baseURL)
     }
@@ -244,11 +244,10 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
             scrollPageToBottom()
         }
 
-        UIView.animate(withDuration: 0.2, animations: {webView.alpha = 1}, completion: { finished in
-            webView.isColors = false
-            self.webView?.createMenu(options: false)
-        })
-
+        
+        webView.isColors = false
+        self.webView?.createMenu(options: false)
+        
         delegate?.pageDidLoad?(self)
     }
 

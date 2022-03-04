@@ -121,7 +121,7 @@ open class FolioReader: NSObject {
     open weak var readerCenter: FolioReaderCenter? {
         return self.readerContainer?.centerViewController
     }
-    private let transitionDelegate = FolioReaderTransitionDelegate()
+//    private let transitionDelegate = FolioReaderTransitionDelegate()
 
     /// Check if reader is open
     var isReaderOpen = false

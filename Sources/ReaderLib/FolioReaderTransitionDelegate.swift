@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-public class FolioReaderTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FolioReaderAnimator()
-    }
-    
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
-    }
-}
+//public class FolioReaderTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
+//    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return FolioReaderAnimator()
+//    }
+//    
+//    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return nil
+//    }
+//}
