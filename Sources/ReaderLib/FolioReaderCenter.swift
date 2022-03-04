@@ -317,11 +317,11 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         setCollectionViewProgressiveDirection()
 
         print("RELOAD DATA")
-        let cfi = self.folioReader.savedPositionForCurrentBook
-        guard let userCFI = cfi, userCFI.nodes.count > 2 else { return }
-        let pageNumber = userCFI.nodes[1].index / 2
-        print(userCFI)
-        print("PAGENUMBER: \(pageNumber)")
+//        let cfi = self.folioReader.savedPositionForCurrentBook
+//        guard let userCFI = cfi, userCFI.nodes.count > 2 else { return }
+//        let pageNumber = userCFI.nodes[1].index / 2
+//        print(userCFI)
+//        print("PAGENUMBER: \(pageNumber)")
         //WORKING
 //        DispatchQueue.main.async {
             self.collectionView.setContentOffset(CGPoint(x: 3900, y: 0), animated: false)
@@ -1361,7 +1361,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 let currentPosition = callback as? String,
                 let cfi = EpubCFI.generate(chapterIndex: strongSelf.currentPageNumber - 1, odmStr: currentPosition) else { return }
             print("currentPosition" + currentPosition)
-            strongSelf.folioReader.savedPositionForCurrentBook = cfi
+//            strongSelf.folioReader.savedPositionForCurrentBook = cfi
             strongSelf.pageDelegate?.userCFIChanged?(cfi: cfi.standardizedFormat)
         })
     }
@@ -1524,14 +1524,14 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
 extension FolioReaderCenter: FolioReaderPageDelegate {
 
-    private func scroll(_ page: FolioReaderPage, using cfi: CFI?) {
-        guard let nodeJson = try? JSONEncoder().encode(cfi?.domIndices),
-            let nodeStr = String(data: nodeJson, encoding: .utf8) else { return }
-        page.getReadingPositionOffset(value: nodeStr) { (offset) in
-            guard let pageOffset = offset else { return }
-            page.scrollPageToOffset(pageOffset, animated: false)
-        }
-    }
+//    private func scroll(_ page: FolioReaderPage, using cfi: CFI?) {
+//        guard let nodeJson = try? JSONEncoder().encode(cfi?.domIndices),
+//            let nodeStr = String(data: nodeJson, encoding: .utf8) else { return }
+//        page.getReadingPositionOffset(value: nodeStr) { (offset) in
+//            guard let pageOffset = offset else { return }
+//            page.scrollPageToOffset(pageOffset, animated: false)
+//        }
+//    }
 
     public func pageDidLoad(_ page: FolioReaderPage) {
         if self.readerConfig.loadSavedPositionForCurrentBook {
@@ -1539,7 +1539,7 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
                 updateCurrentPage(page)
                 //WORKING
                 print("Scrolled")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390*3, y: 0), animated: false)
                 }
                 
@@ -1562,7 +1562,7 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
 
         // Go to fragment if needed
         if let fragmentID = tempFragment, let currentPage = currentPage , fragmentID != "" {
-            currentPage.handleAnchor(fragmentID, avoidBeginningAnchors: true, animated: true)
+//            currentPage.handleAnchor(fragmentID, avoidBeginningAnchors: true, animated: true)
             tempFragment = nil
         }
         

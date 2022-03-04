@@ -306,36 +306,66 @@ extension FolioReader {
     }
     
     //需要注释
-    open var savedPositionForCurrentBook: CFI? {
-        get {
-            guard let bookId = BookProvider.shared.currentBook.name,
-                let json = self.defaults.value(forKey: bookId) as? Data else {
-                return nil
-            }
-            do {
-                let cfi = try JSONDecoder().decode(CFI.self, from: json)
-                return cfi
-            } catch {
-                print("decoding CFI failed")
-                return nil
-            }
-        }
-        set {
-            guard let bookId = BookProvider.shared.currentBook.name else {
-                print("NO BOOK ID")
-                return
-            }
-            do {
-                print("SI BOOK ID")
-                print("BOOK ID \(bookId)")
-                print("-----\(newValue)")
-                let json = try JSONEncoder().encode(newValue)
-                self.defaults.set(json, forKey: bookId)
-            } catch {
-                print("encoding CFI failed")
-            }
-        }
-    }
+//    open var savedPositionForCurrentBook: CFI? {
+//        get {
+//            guard let bookId = BookProvider.shared.currentBook.name,
+//                let json = self.defaults.value(forKey: bookId) as? Data else {
+//                return nil
+//            }
+//            do {
+//                let cfi = try JSONDecoder().decode(CFI.self, from: json)
+//                return cfi
+//            } catch {
+//                print("decoding CFI failed")
+//                return nil
+//            }
+//        }
+//        set {
+//            guard let bookId = BookProvider.shared.currentBook.name else {
+//                print("NO BOOK ID")
+//                return
+//            }
+//            do {
+//                print("SI BOOK ID")
+//                print("BOOK ID \(bookId)")
+//                print("-----\(newValue)")
+//                let json = try JSONEncoder().encode(newValue)
+//                self.defaults.set(json, forKey: bookId)
+//            } catch {
+//                print("encoding CFI failed")
+//            }
+//        }
+//    }
+//    open var savedPositionForCurrentBook: CFI? {
+//        get {
+//            guard let bookId = BookProvider.shared.currentBook.name,
+//                let json = self.defaults.value(forKey: bookId) as? Data else {
+//                return nil
+//            }
+//            do {
+//                let cfi = try JSONDecoder().decode(CFI.self, from: json)
+//                return cfi
+//            } catch {
+//                print("decoding CFI failed")
+//                return nil
+//            }
+//        }
+//        set {
+//            guard let bookId = BookProvider.shared.currentBook.name else {
+//                print("NO BOOK ID")
+//                return
+//            }
+//            do {
+//                print("SI BOOK ID")
+//                print("BOOK ID \(bookId)")
+//                print("-----\(newValue)")
+//                let json = try JSONEncoder().encode(newValue)
+//                self.defaults.set(json, forKey: bookId)
+//            } catch {
+//                print("encoding CFI failed")
+//            }
+//        }
+//    }
 }
 
 // MARK: - Metadata
@@ -378,7 +408,7 @@ extension FolioReader {
                 let cfi = EpubCFI.generate(chapterIndex: currentPageNumber - 1, odmStr: currentPosition)
                 else { return }
             print(cfi)
-            strongSelf.savedPositionForCurrentBook = cfi
+//            strongSelf.savedPositionForCurrentBook = cfi
             strongSelf.readerCenter?.pageDelegate?.userCFIChanged?(cfi: cfi.standardizedFormat)
         })
     }
