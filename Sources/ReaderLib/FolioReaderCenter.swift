@@ -659,6 +659,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             currentPage = page
             self.previousPageNumber = page.pageNumber-1
             self.currentPageNumber = page.pageNumber
+            
         } else {
             let currentIndexPath = getCurrentIndexPath()
             currentPage = collectionView.cellForItem(at: currentIndexPath) as? FolioReaderPage
@@ -666,7 +667,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             self.previousPageNumber = currentIndexPath.row
             self.currentPageNumber = currentIndexPath.row + 1
         }
-
+        print("change current page number to \(currentPageNumber)")
         self.nextPageNumber = (((self.currentPageNumber + 1) <= totalPages) ? (self.currentPageNumber + 1) : self.currentPageNumber)
 
         // Set pages
