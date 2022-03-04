@@ -1539,7 +1539,7 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
                 updateCurrentPage(page)
                 //WORKING
                 print("Scrolled")
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                     self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390*3, y: 0), animated: false)
                 }
                 
