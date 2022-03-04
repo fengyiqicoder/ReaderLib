@@ -322,9 +322,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let pageNumber = userCFI.nodes[1].index / 2
         print(userCFI)
         print("PAGENUMBER: \(pageNumber)")
-        self.folioReader.savedPositionForCurrentBook = cfi
-        self.changePageWith(page: pageNumber)
-        self.currentPageNumber = pageNumber
+        DispatchQueue.main.async {
+            self.collectionView.setContentOffset(CGPoint(x: 3900, y: 0), animated: false)
+            self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390, y: 0), animated: false)
+        }
+//        self.folioReader.savedPositionForCurrentBook = cfi
+//        self.changePageWith(page: pageNumber)
+//        self.currentPageNumber = pageNumber
         //Invesgate
 //        pageDelegate?.getUserCFI?(completionHandler: { [weak self] (cfiString) in
 //            guard let stongSelf = self else { return }
@@ -1129,6 +1133,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             })
         }
     }
+    
+//    public func scrollTo(pag)
 
     // MARK: - Audio Playing
 
@@ -1532,14 +1538,14 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
             if isFirstLoad {
                 updateCurrentPage(page)
                 isFirstLoad = false
-                pageDelegate?.getUserCFI?(completionHandler: { [weak self] (cfiString) in
-                    guard let cfiStr = cfiString,
-                        let cfi = EpubCFI.parse(cfi: cfiStr) else {
-                        self?.scroll(page, using: self?.folioReader.savedPositionForCurrentBook)
-                        return
-                    }
-                    self?.scroll(page, using: cfi)
-                })
+//                pageDelegate?.getUserCFI?(completionHandler: { [weak self] (cfiString) in
+//                    guard let cfiStr = cfiString,
+//                        let cfi = EpubCFI.parse(cfi: cfiStr) else {
+//                        self?.scroll(page, using: self?.folioReader.savedPositionForCurrentBook)
+//                        return
+//                    }
+//                    self?.scroll(page, using: cfi)
+//                })
             } else if (self.isScrolling == false && folioReader.needsRTLChange == true) {
                 page.scrollPageToBottom()
             }

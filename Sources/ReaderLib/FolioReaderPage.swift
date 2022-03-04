@@ -244,11 +244,14 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
             scrollPageToBottom()
         }
         
+        UIView.animate(withDuration: 0.1, animations: {webView.alpha = 1}, completion: { finished in
+            webView.isColors = false
+            self.webView?.createMenu(options: false)
+        })
+        
         delegate?.pageDidLoad?(self)
+        
 
-        webView.alpha = 1
-        webView.isColors = false
-        self.webView?.createMenu(options: false)
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
