@@ -667,7 +667,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             self.previousPageNumber = currentIndexPath.row
             self.currentPageNumber = currentIndexPath.row + 1
         }
-        print("change current page number to \(currentPageNumber)")
         self.nextPageNumber = (((self.currentPageNumber + 1) <= totalPages) ? (self.currentPageNumber + 1) : self.currentPageNumber)
 
         // Set pages
@@ -1347,6 +1346,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
     private func updateUserTrackingLocation() {
         print("updateUserTrackingLocation")
+        print("change current page number to \(currentPageNumber)")
+
         currentPage?.webView?.js("getCurrentPosition(\(self.readerContainer?.readerConfig.scrollDirection == .horizontal))", completionHandler: { [weak self] (callback, error) in
             
             guard error == nil,
