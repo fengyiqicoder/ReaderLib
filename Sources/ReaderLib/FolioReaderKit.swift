@@ -304,7 +304,8 @@ extension FolioReader {
             self.defaults.set(value, forKey: kCurrentTOCMenu)
         }
     }
-
+    
+    //需要注释
     open var savedPositionForCurrentBook: CFI? {
         get {
             guard let bookId = BookProvider.shared.currentBook.name,
