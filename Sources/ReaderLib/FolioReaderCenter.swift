@@ -1539,7 +1539,10 @@ extension FolioReaderCenter: FolioReaderPageDelegate {
                 updateCurrentPage(page)
                 //WORKING
                 print("Scrolled")
-                self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390, y: 0), animated: true)
+                DispatchQueue.main.async {
+                    self.currentPage!.webView!.scrollView.setContentOffset(CGPoint(x: 390*3, y: 0), animated: false)
+                }
+                
                 isFirstLoad = false
 //                pageDelegate?.getUserCFI?(completionHandler: { [weak self] (cfiString) in
 //                    guard let cfiStr = cfiString,
