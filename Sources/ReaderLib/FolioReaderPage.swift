@@ -213,9 +213,11 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
     // MARK: - WKWebView Delegate
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         didFinishNavigation = true
+        print("@ didFinish navigation")
     }
     
     public func webViewDidFinishLoadingPage() {
+        print("@ webViewDidFinishLoadingPage")
         guard let webView = webView else {
             return
         }
