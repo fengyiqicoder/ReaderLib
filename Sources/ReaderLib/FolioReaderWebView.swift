@@ -36,8 +36,6 @@ open class FolioReaderWebView: WKWebView {
         let configuration = WKWebViewConfiguration()
         configuration.setURLSchemeHandler(BookProvider(), forURLScheme: "bookprovider")
         super.init(frame: frame, configuration: configuration)
-        self.scrollView.maximumZoomScale = 1
-        self.scrollView.minimumZoomScale = 1
     }
 
     required public init?(coder aDecoder: NSCoder) {

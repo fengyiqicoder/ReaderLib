@@ -188,7 +188,7 @@ open class FolioReaderPage: UICollectionViewCell, WKNavigationDelegate, UIGestur
     func loadHTMLString(_ htmlContent: String!, baseURL: URL!) {
         // Load the html into the webview
         webView?.alpha = 0
-        let headerString = "<meta name=\"viewport\" content=\"initial-scale=1.0\" />"
+        let headerString = "<meta name=\"viewport\" content=\"initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />"
         webView?.loadHTMLString(headerString + htmlContent, baseURL: baseURL)
     }
     

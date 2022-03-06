@@ -1457,8 +1457,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 sheet.detents = [.medium()]
             }
         }
-        let nav = UINavigationController(rootViewController: pageController)
-        present(nav, animated: true, completion: nil)
+//        let nav = UINavigationController(rootViewController: pageController)
+        present(pageController, animated: true, completion: nil)
     }
 
     /**
