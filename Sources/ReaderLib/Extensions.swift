@@ -449,12 +449,12 @@ internal extension UIViewController {
     
     // MARK: - NavigationBar
     
-    private var barAlpha: CGFloat { 1 }
+    private var barAlpha: CGFloat { 0.95 }
     func setTransparentNavigation() {
         let navBar = self.navigationController?.navigationBar
         navBar?.isHidden = true
         navBar?.isTranslucent = false
-        navBar?.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(barAlpha)
+        navBar?.backgroundColor = UIColor.white.withAlphaComponent(barAlpha)
     }
 
     func setTranslucentNavigation(_ translucent: Bool = true, color: UIColor, tintColor: UIColor = UIColor.white, titleColor: UIColor = UIColor.black, andFont font: UIFont = UIFont.systemFont(ofSize: 17)) {
@@ -463,7 +463,7 @@ internal extension UIViewController {
         navBar?.isTranslucent = false
         navBar?.tintColor = tintColor
         navBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor, NSAttributedString.Key.font: font]
-        navBar?.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(barAlpha)
+        navBar?.backgroundColor = UIColor.white.withAlphaComponent(barAlpha)
     }
 }
 /**
