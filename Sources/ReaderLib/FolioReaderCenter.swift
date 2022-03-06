@@ -1454,7 +1454,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         pageController.modalPresentationStyle = .pageSheet
         if #available(iOS 15.0, *) {
             if let sheet = pageController.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
             }
         }
 //        let nav = UINavigationController(rootViewController: pageController)
