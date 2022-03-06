@@ -449,7 +449,7 @@ internal extension UIViewController {
     
     // MARK: - NavigationBar
     
-    private var barAlpha: CGFloat { 0.7 }
+    private var barAlpha: CGFloat { 0.9 }
     func setTransparentNavigation() {
         let navBar = self.navigationController?.navigationBar
         navBar?.isHidden = true
