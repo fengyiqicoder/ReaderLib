@@ -454,6 +454,7 @@ internal extension UIViewController {
 //        navBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navBar?.isHidden = true
         navBar?.isTranslucent = false
+        navBar?.backgroundColor = UIColor.white
     }
 
     func setTranslucentNavigation(_ translucent: Bool = true, color: UIColor, tintColor: UIColor = UIColor.white, titleColor: UIColor = UIColor.black, andFont font: UIFont = UIFont.systemFont(ofSize: 17)) {
@@ -463,6 +464,7 @@ internal extension UIViewController {
         navBar?.isTranslucent = false
         navBar?.tintColor = tintColor
         navBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor, NSAttributedString.Key.font: font]
+        navBar?.backgroundColor = UIColor.white
     }
 }
 /**
