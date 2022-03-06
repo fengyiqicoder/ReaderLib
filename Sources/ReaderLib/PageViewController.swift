@@ -71,7 +71,7 @@ class PageViewController: UIPageViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureNavBar()
+//        configureNavBar()
     }
 
     func configureNavBar() {

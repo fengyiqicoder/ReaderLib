@@ -300,8 +300,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let font = UIBarButtonItem(image: fontIcon, style: .plain, target: self, action: #selector(presentFontsMenu))
         font.width = space
 
-//        rightBarIcons.append(contentsOf: [toc])
-//        navigationItem.rightBarButtonItems = rightBarIcons
+        rightBarIcons.append(contentsOf: [toc])
+        navigationItem.rightBarButtonItems = rightBarIcons
         
         if(self.readerConfig.displayTitle){
             navigationItem.title = book.title
@@ -1450,8 +1450,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         pageController.viewControllerOne = chapter
         pageController.viewControllerTwo = highlight
-        pageController.segmentedControlItems = [readerConfig.localizedContentsTitle, readerConfig.localizedHighlightsTitle]
-
+        pageController.segmentedControlItems = [readerConfig.localizedContentsTitle]
+        pageController.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = pageController.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+        }
         let nav = UINavigationController(rootViewController: pageController)
         present(nav, animated: true, completion: nil)
     }
