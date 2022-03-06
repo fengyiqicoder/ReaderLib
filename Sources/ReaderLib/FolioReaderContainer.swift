@@ -60,7 +60,7 @@ open class FolioReaderContainer: UIViewController {
             self.initialization()
         }
         
-        overrideUserInterfaceStyle = .dark
+        overrideUserInterfaceStyle = .light
     }
 
     required public init?(coder aDecoder: NSCoder) {
