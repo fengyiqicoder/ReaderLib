@@ -11,6 +11,8 @@ import FontBlaster
 
 /// Reader container
 open class FolioReaderContainer: UIViewController {
+    
+    
     open weak var sinkDelegate: SinkProtocol?
 
     var shouldHideStatusBar = true
@@ -57,6 +59,8 @@ open class FolioReaderContainer: UIViewController {
         if self.epubPath != "" {
             self.initialization()
         }
+        
+        overrideUserInterfaceStyle = .light
     }
 
     required public init?(coder aDecoder: NSCoder) {

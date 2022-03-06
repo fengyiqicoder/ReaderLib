@@ -50,7 +50,7 @@ class FolioReaderAddHighlightNote: UIViewController {
         super.viewWillAppear(animated)
         
         textView.becomeFirstResponder()
-        setNeedsStatusBarAppearanceUpdate()
+//        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewDidLayoutSubviews() {
